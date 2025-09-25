@@ -1,0 +1,23 @@
+# Foundry
+cache/
+out/
+broadcast/
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Node.js (if using frontend)
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment artifacts
+deployments/*/
+!deployments/.gitkeep

@@ -1,0 +1,45 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+gas_reports = ["FluxtWalletFactory"]
+
+# Solidity compiler version
+solc_version = "0.8.24"
+
+# Optimizer settings
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+
+# Remappings for imports
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
+]
+
+# Test settings
+fuzz = { runs = 256 }
+invariant = { runs = 256 }
+
+# RPC endpoints for different networks
+[rpc_endpoints]
+mumbai = "https://rpc-mumbai.maticvigil.com"
+base_sepolia = "https://sepolia.base.org"
+sepolia = "https://rpc.sepolia.org"
+anvil = "http://localhost:8545"
+
+# Etherscan API keys for contract verification
+[etherscan]
+mumbai = { key = "${POLYGONSCAN_API_KEY}", url = "https://api-testnet.polygonscan.com/api" }
+base_sepolia = { key = "${BASESCAN_API_KEY}", url = "https://api-sepolia.basescan.org/api" }
+sepolia = { key = "${ETHERSCAN_API_KEY}" }
+
+
+
+# Test-specific settings
+[profile.test]
+gas_reports = ["*"]
+
+[profile.ci]
+fuzz = { runs = 10_000 }
+invariant = { runs = 1_000 }
