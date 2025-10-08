@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { z } from 'zod';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Paylink } from '../../infra/typeorm/entities/paylink.entity';
+import { Paylink } from '../../infra/entities/paylink.entity';
 import QRCode from 'qrcode';
 
 const ReceiveDto = z.object({

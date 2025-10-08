@@ -4,10 +4,10 @@ import { LoggerModule } from 'nestjs-pino';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { User } from './infra/typeorm/entities/user.entity';
-import { Transaction } from './infra/typeorm/entities/transaction.entity';
-import { Paylink } from './infra/typeorm/entities/paylink.entity';
-import { Withdrawal } from './infra/typeorm/entities/withdrawal.entity';
+import { User } from './infra/entities/user.entity';
+import { Transaction } from './infra/entities/transaction.entity';
+import { Paylink } from './infra/entities/paylink.entity';
+import { Withdrawal } from './infra/entities/withdrawal.entity';
 import { FxModule } from './modules/fx/fx.module';
 import { BlockchainModule } from './modules/blockchain/blockchain.module';
 import { UsersModule } from './modules/users/users.module';

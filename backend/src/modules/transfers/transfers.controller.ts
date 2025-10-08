@@ -4,7 +4,7 @@ import { UsersService } from '../users/users.service';
 import { BlockchainService } from '../blockchain/blockchain.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Transaction } from '../../infra/typeorm/entities/transaction.entity';
+import { Transaction } from '../../infra/entities/transaction.entity';
 import { ethers } from 'ethers';
 
 const SendDto = z.object({

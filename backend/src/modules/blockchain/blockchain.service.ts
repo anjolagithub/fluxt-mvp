@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { Contract, JsonRpcProvider, Wallet, ethers } from 'ethers';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../../infra/typeorm/entities/user.entity';
-import { Transaction } from '../../infra/typeorm/entities/transaction.entity';
+import { User } from '../../infra/entities/user.entity';
+import { Transaction } from '../../infra/entities/transaction.entity';
 
 @Injectable()
 export class BlockchainService implements OnModuleInit {

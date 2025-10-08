@@ -3,7 +3,7 @@ import { TransfersController } from './transfers.controller';
 import { UsersModule } from '../users/users.module';
 import { BlockchainModule } from '../blockchain/blockchain.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Transaction } from '../../infra/typeorm/entities/transaction.entity';
+import { Transaction } from '../../infra/entities/transaction.entity';
 
 @Module({
   imports: [

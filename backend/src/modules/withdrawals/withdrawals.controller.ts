@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { FxService } from '../fx/fx.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Withdrawal } from '../../infra/typeorm/entities/withdrawal.entity';
+import { Withdrawal } from '../../infra/entities/withdrawal.entity';
 
 const WithdrawDto = z.object({
   userId: z.string(),
