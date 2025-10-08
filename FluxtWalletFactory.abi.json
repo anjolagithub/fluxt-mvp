@@ -1,81 +1,596 @@
-
-╭-------------+-----------------------------------------------------------+--------------------------------------------------------------------╮
-| Type        | Signature                                                 | Selector                                                           |
-+==============================================================================================================================================+
-| event       | OwnershipTransferred(address,address)                     | 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0 |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| event       | TokenAdded(address,string)                                | 0x7afee0f1b802cc0f66c67890e26b4566251859cf2cd8de79b86aed7251d9756a |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| event       | TokenDeposited(address,address,uint256)                   | 0xf1444b5cad7ce70cb018d1b8edc8618fe303f3c7f034d8d572a6e27facbf2bef |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| event       | TokenReceived(address,address,address,uint256)            | 0xdf48b805f3553eb1222ddcee0f94a3e00ed7f704e79656f73a9f6c12b6b4a40a |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| event       | TokenRemoved(address)                                     | 0x4c910b69fe65a61f7531b9c5042b2329ca7179c77290aa7e2eb3afa3c8511fd3 |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| event       | TokenSent(address,address,address,uint256)                | 0xa4162acb2096ecf8e81304c656b4ff4eb143f95264f26ac3dad5a3b96bb68b53 |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| event       | TokenWithdrawn(address,address,uint256)                   | 0x8210728e7c071f615b840ee026032693858fbcd5e5359e67e438c890f59e5620 |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| event       | WalletCreated(address,address,uint256)                    | 0x4459976dae5d173eda0ac09c39b840bed814c9d1e490e8b9ba23148e4b19a837 |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__InsufficientBalance()                 | 0xc8f17634                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__InvalidAddress()                      | 0x3d40a718                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__InvalidAmount()                       | 0x0d584d08                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__SameAddress()                         | 0xe230414a                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__TransferFailed()                      | 0x642e2b84                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__UnsupportedToken()                    | 0x0bdba147                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__WalletAlreadyExists()                 | 0xd8b48500                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | FluxtWalletFactory__WalletDoesNotExist()                  | 0xa31c0fd3                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | OwnableInvalidOwner(address)                              | 0x1e4fbdf7                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | OwnableUnauthorizedAccount(address)                       | 0x118cdaa7                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | ReentrancyGuardReentrantCall()                            | 0x3ee5aeb5                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| error       | SafeERC20FailedOperation(address)                         | 0x5274afe7                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | addSupportedToken(address,string) nonpayable              | 0x720138e8                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | createWallet(address) nonpayable returns (address)        | 0xb054a9e8                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | depositToken(address,address,uint256) nonpayable          | 0xfb0f97a8                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | emergencyWithdraw(address,uint256,address) nonpayable     | 0x551512de                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getBalance(address,address) view returns (uint256)        | 0xd4fac45d                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getTotalUsers() view returns (uint256)                    | 0x9be572f6                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getUserAtIndex(uint256) view returns (address)            | 0xffcc7bbf                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getUserWallet(address) view returns (address)             | 0x9ad54793                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getWalletCreationTime(address) view returns (uint256)     | 0x5fb76d33                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | isTokenSupported(address) view returns (bool)             | 0x75151b63                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | owner() view returns (address)                            | 0x8da5cb5b                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | removeSupportedToken(address) nonpayable                  | 0x76319190                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | renounceOwnership() nonpayable                            | 0x715018a6                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | sendToken(address,address,address,uint256) nonpayable     | 0x3c8c6a1e                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | transferOwnership(address) nonpayable                     | 0xf2fde38b                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | walletExists(address) view returns (bool)                 | 0x2c03abe2                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| function    | withdrawToken(address,address,uint256,address) nonpayable | 0x176977f3                                                         |
-|-------------+-----------------------------------------------------------+--------------------------------------------------------------------|
-| constructor | constructor(address) nonpayable                           |                                                                    |
-╰-------------+-----------------------------------------------------------+--------------------------------------------------------------------╯
-
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "initialOwner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "addSupportedToken",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "symbol",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createWallet",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "walletAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "depositToken",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "emergencyWithdraw",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "recipient",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getBalance",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "balance",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getTotalUsers",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "count",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getUserAtIndex",
+    "inputs": [
+      {
+        "name": "index",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getUserWallet",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "walletAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getWalletCreationTime",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "timestamp",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isTokenSupported",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "supported",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "removeSupportedToken",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "renounceOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "sendToken",
+    "inputs": [
+      {
+        "name": "from",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "to",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "transferOwnership",
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "walletExists",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "exists",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "withdrawToken",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "recipient",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TokenAdded",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "symbol",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TokenDeposited",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TokenReceived",
+    "inputs": [
+      {
+        "name": "from",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "to",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TokenRemoved",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TokenSent",
+    "inputs": [
+      {
+        "name": "from",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "to",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TokenWithdrawn",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "WalletCreated",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "wallet",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "timestamp",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__InsufficientBalance",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__InvalidAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__InvalidAmount",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__SameAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__TransferFailed",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__UnsupportedToken",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__WalletAlreadyExists",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FluxtWalletFactory__WalletDoesNotExist",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OwnableInvalidOwner",
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "OwnableUnauthorizedAccount",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ReentrancyGuardReentrantCall",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "SafeERC20FailedOperation",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  }
+]
