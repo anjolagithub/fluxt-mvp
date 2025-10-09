@@ -17,27 +17,35 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "script:fix-addresses": "ts-node -r tsconfig-paths/register src/scripts/fix-wallet-addresses.ts",
+    "script:send-tokens": "ts-node -r tsconfig-paths/register src/scripts/send-test-tokens.ts",
+    "script:check-balance": "ts-node -r tsconfig-paths/register src/scripts/check-balance.ts",
+    "script:check-fluxt-wallet": "ts-node -r tsconfig-paths/register src/scripts/check-fluxt-wallet.ts",
+    "script:migrate-to-wallet-addresses": "ts-node -r tsconfig-paths/register src/scripts/migrate-to-wallet-addresses.ts"
   },
   "dependencies": {
+    "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
-    "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1",
-    "@nestjs/config": "^4.0.0",
-    "@nestjs/axios": "^4.0.0",
+    "@nestjs/swagger": "^11.2.0",
     "@nestjs/throttler": "^6.2.0",
+    "@nestjs/typeorm": "^11.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "nestjs-pino": "^4.1.0",
-    "pino-pretty": "^13.0.0",
     "ethers": "^6.13.2",
-    "zod": "^3.23.8",
-    "qrcode": "^1.5.3",
-    "typeorm": "^0.3.20",
+    "nestjs-pino": "^4.1.0",
     "pg": "^8.13.1",
-    "@nestjs/typeorm": "^11.0.0"
+    "pino-pretty": "^13.0.0",
+    "qrcode": "^1.5.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.1",
+    "twilio": "^5.10.2",
+    "typeorm": "^0.3.20",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -50,6 +58,7 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.16.10",
+    "@types/qrcode": "^1.5.5",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
@@ -64,8 +73,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0",
-    "@types/qrcode": "^1.5.5"
+    "typescript-eslint": "^8.20.0"
   },
   "jest": {
     "moduleFileExtensions": [
