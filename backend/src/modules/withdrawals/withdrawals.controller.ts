@@ -1,43 +1,34 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { z } from 'zod';
-import { FxService } from '../fx/fx.service';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Withdrawal } from '../../infra/entities/withdrawal.entity';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CreateWithdrawalDto } from './dto/create-withdrawal.dto';
+import { WithdrawalsService } from './withdrawals.service';
 
-const WithdrawDto = z.object({
-  userId: z.string(),
-  amount: z.string(),
-  token: z.string(),
-});
-
+@ApiTags('withdrawals')
 @Controller('withdraw')
 export class WithdrawalsController {
-  constructor(
-    private readonly fx: FxService,
-    @InjectRepository(Withdrawal)
-    private readonly withdrawalRepo: Repository<Withdrawal>,
-  ) {}
+  constructor(private readonly withdrawalsService: WithdrawalsService) {}
 
   @Post()
-  async withdraw(@Body() body: unknown) {
-    const { userId, amount, token } = WithdrawDto.parse(body);
-    const rates = await this.fx.getRates();
-    const ngnEquivalent = this.fx.convert(amount, 'NGN', rates);
-    await this.withdrawalRepo.save(
-      this.withdrawalRepo.create({
-        userId,
-        amount,
-        token,
-        ngnEquivalent,
-        status: 'processing',
-      }),
-    );
-    return {
-      success: true,
-      message: `Withdrawal of $${amount} ${token} (₦${ngnEquivalent}) initiated`,
-      status: 'processing',
-      estimatedTime: '2-3 business days',
-    };
+  @ApiOperation({ summary: 'Initiate a withdrawal to fiat currency' })
+  @ApiResponse({
+    status: 201,
+    description: 'Withdrawal initiated successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        success: { type: 'boolean', example: true },
+        message: {
+          type: 'string',
+          example: 'Withdrawal of $100.00 USDC (₦150000.00) initiated',
+        },
+        status: { type: 'string', example: 'processing' },
+        estimatedTime: { type: 'string', example: '2-3 business days' },
+      },
+    },
+  })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  async withdraw(@Body() body: CreateWithdrawalDto) {
+    const { id, amount, token } = body;
+    return this.withdrawalsService.withdraw(id, amount, token);
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, map } from 'rxjs';
 
-export type FxRates = { NGN: number; EUR: number; GBP: number };
+export type FxRates = { NGN: number; GBP: number };
 
 @Injectable()
 export class FxService {
@@ -25,10 +25,10 @@ export class FxService {
     );
 
     const ratesSource = data.rates ?? data.conversion_rates;
+    console.log('Fetched FX rates:', ratesSource);
     const rates: FxRates = {
-      NGN: Number(ratesSource.NGN),
-      EUR: Number(ratesSource.EUR),
-      GBP: Number(ratesSource.GBP),
+      NGN: Number(ratesSource?.NGN),
+      GBP: Number(ratesSource?.GBP),
     };
     this.cache = { rates, fetchedAt: now };
     return rates;
