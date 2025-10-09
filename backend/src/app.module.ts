@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { LoggerModule } from 'nestjs-pino';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -12,22 +11,17 @@ import { FxModule } from './modules/fx/fx.module';
 import { BlockchainModule } from './modules/blockchain/blockchain.module';
 import { UsersModule } from './modules/users/users.module';
 import { WalletModule } from './modules/wallet/wallet.module';
+import { DepositModule } from './modules/deposit/deposit.module';
 import { TransfersModule } from './modules/transfers/transfers.module';
 import { ReceiveModule } from './modules/receive/receive.module';
 import { WithdrawalsModule } from './modules/withdrawals/withdrawals.module';
+import { WhatsAppModule } from './modules/whatsapp/whatsapp.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './common/interceptors';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    LoggerModule.forRoot({
-      pinoHttp: {
-        level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
-        transport:
-          process.env.NODE_ENV === 'production'
-            ? undefined
-            : { target: 'pino-pretty', options: { colorize: true } },
-      },
-    }),
     ThrottlerModule.forRoot([{ ttl: 60, limit: 120 }]),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
@@ -42,11 +36,18 @@ import { WithdrawalsModule } from './modules/withdrawals/withdrawals.module';
     BlockchainModule,
     UsersModule,
     WalletModule,
+    DepositModule,
     TransfersModule,
     ReceiveModule,
     WithdrawalsModule,
+    WhatsAppModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
 export class AppModule {}
