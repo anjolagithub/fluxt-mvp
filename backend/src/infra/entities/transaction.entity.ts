@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -16,16 +17,12 @@ export class Transaction {
   txHash!: string | null;
 
   @ManyToOne(() => User, (u) => u.transactionsFrom, { nullable: true })
+  @JoinColumn({ name: 'fromid' })
   fromUser!: User | null;
 
-  @Column({ type: 'varchar', length: 50, nullable: true })
-  fromUserId!: string | null;
-
   @ManyToOne(() => User, (u) => u.transactionsTo, { nullable: true })
+  @JoinColumn({ name: 'toid' })
   toUser!: User | null;
-
-  @Column({ type: 'varchar', length: 50, nullable: true })
-  toUserId!: string | null;
 
   @Column({ type: 'numeric', precision: 20, scale: 6 })
   amount!: string;

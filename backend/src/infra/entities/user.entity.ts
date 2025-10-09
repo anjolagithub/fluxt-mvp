@@ -15,10 +15,16 @@ export class User {
   id!: string;
 
   @Column({ type: 'varchar', length: 50, unique: true })
-  userId!: string;
+  userWhatsAppId!: string;
 
-  @Column({ type: 'varchar', length: 42 })
-  walletAddress!: string;
+  @Column({ type: 'varchar', length: 42, unique: true })
+  userAddress!: string;
+
+  @Column({ type: 'varchar', length: 42, unique: true, nullable: true })
+  depositAddress?: string;
+
+  @Column({ type: 'integer', nullable: true })
+  derivationIndex?: number;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;

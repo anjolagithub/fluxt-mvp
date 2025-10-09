@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,10 +14,8 @@ export class Withdrawal {
   id!: string;
 
   @ManyToOne(() => User, (u) => u.withdrawals, { nullable: true })
+  @JoinColumn({ name: 'userid' })
   user!: User | null;
-
-  @Column({ type: 'varchar', length: 50, nullable: true })
-  userId!: string | null;
 
   @Column({ type: 'numeric', precision: 20, scale: 6 })
   amount!: string;
