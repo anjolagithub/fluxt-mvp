@@ -27,23 +27,23 @@ export class WhatsAppController {
       console.log('Received webhook body:', JSON.stringify(body, null, 2));
 
       // Validate webhook signature for security (disabled in development)
-      const isDevelopment = process.env.NODE_ENV !== 'production';
+      // const isDevelopment = process.env.NODE_ENV !== 'production';
 
-      if (isDevelopment) {
-        const webhookUrl = `${request.protocol}://${request.get('host')}${request.originalUrl}`;
-        const isValidSignature = this.whatsappService.validateTwilioSignature(
-          twilioSignature,
-          webhookUrl,
-          JSON.stringify(body) // Temporary - need raw body for proper validation
-        );
+      // if (isDevelopment) {
+      //   const webhookUrl = `${request.protocol}://${request.get('host')}${request.originalUrl}`;
+      //   const isValidSignature = this.whatsappService.validateTwilioSignature(
+      //     twilioSignature,
+      //     webhookUrl,
+      //     JSON.stringify(body) // Temporary - need raw body for proper validation
+      //   );
 
-        if (!isValidSignature) {
-          console.error('Invalid webhook signature - rejecting request');
-          throw new BadRequestException('Invalid webhook signature');
-        }
-      } else {
-        console.log('Development mode - skipping signature validation');
-      }
+      //   if (!isValidSignature) {
+      //     console.error('Invalid webhook signature - rejecting request');
+      //     throw new BadRequestException('Invalid webhook signature');
+      //   }
+      // } else {
+      //   console.log('Development mode - skipping signature validation');
+      // }
 
       const from = body.From;
       const messageBody = body.Body;
