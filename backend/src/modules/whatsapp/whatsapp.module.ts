@@ -5,9 +5,17 @@ import { WhatsAppService } from './whatsapp.service';
 import { User } from '../../infra/entities/user.entity';
 import { UsersModule } from '../users/users.module';
 import { BlockchainModule } from '../blockchain/blockchain.module';
+import { TransfersModule } from '../transfers/transfers.module';
+import { ReceiveModule } from '../receive/receive.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), UsersModule, BlockchainModule],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    UsersModule,
+    BlockchainModule,
+    TransfersModule,
+    ReceiveModule
+  ],
   controllers: [WhatsAppController],
   providers: [WhatsAppService],
   exports: [WhatsAppService],

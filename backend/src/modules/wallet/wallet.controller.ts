@@ -8,7 +8,7 @@ import { WalletService } from './wallet.service';
 export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
-  @Post('create-wallet')
+  @Post("wallets")
   @ApiOperation({ summary: 'Create a new wallet for a user' })
   @ApiResponse({
     status: 201,
